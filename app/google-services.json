@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "138665575711",
+    "firebase_url": "https://upoll-app-c8dbb.firebaseio.com",
+    "project_id": "upoll-app-c8dbb",
+    "storage_bucket": "upoll-app-c8dbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138665575711:android:c1c5196d7954cb02",
+        "android_client_info": {
+          "package_name": "com.patiphan.upoll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138665575711-8od5i6q5hjibntj3gaq16r5o62n99744.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.patiphan.upoll",
+            "certificate_hash": "cf6fb738867a3f8336c4c905e222756efba568d7"
+          }
+        },
+        {
+          "client_id": "138665575711-aovman9ldp9arvu7be7isa3b1kmdb2iu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW08MyTUAGiLGY-dU-YcJZEiSIOnBUC-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138665575711-aovman9ldp9arvu7be7isa3b1kmdb2iu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
