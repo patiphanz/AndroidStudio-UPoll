@@ -1,52 +1,41 @@
 package com.patiphan.upoll;
 
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-public class PollPage extends AppCompatActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
-
-    private Button createPoll;
-
-
+public class FriendPage extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_poll_page);
+        setContentView(R.layout.activity_friend_page);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-
-        createPoll = (Button) findViewById(R.id.createPoll);
-
-
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        Intent i = new Intent(getApplicationContext(), PollPage.class);
+        Intent i = new Intent(FriendPage.this, PollPage.class);
 
         switch (item.getItemId()) {
 
             case R.id.navigation_home:
-                i = new Intent(getApplicationContext(), PollPage.class);
+                i = new Intent(FriendPage.this, PollPage.class);
                 break;
 
             case R.id.navigation_ulist:
-                i = new Intent(getApplicationContext(), UListPage.class);
+                i = new Intent(FriendPage.this, UListPage.class);
                 break;
 
             case R.id.navigation_friend:
-                i = new Intent(getApplicationContext(), FriendPage.class);
+                i = new Intent(FriendPage.this, FriendPage.class);
                 break;
 
         }
@@ -55,12 +44,8 @@ public class PollPage extends AppCompatActivity
     }
 
     public boolean loadPage(Intent i) {
+        finish();
         startActivity(i);
         return true;
-    }
-
-    public void onCreateButtonClicked(View view) {
-        Intent i = new Intent(PollPage.this, NewPollPage.class);
-        startActivity(i);
     }
 }
