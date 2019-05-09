@@ -1,3 +1,3 @@
 # AndroidStudio-UPoll
 
-<img src="img/home.png">
+<img src="img/home.png" height="500">
