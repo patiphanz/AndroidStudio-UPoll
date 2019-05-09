@@ -10,24 +10,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+
 public class PollPage extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private Button createPoll;
-
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poll_page);
 
+        mAuth = FirebaseAuth.getInstance();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-
-        createPoll = (Button) findViewById(R.id.createPoll);
-
-
+        
     }
 
     @Override
@@ -61,6 +60,13 @@ public class PollPage extends AppCompatActivity
 
     public void onCreateButtonClicked(View view) {
         Intent i = new Intent(PollPage.this, NewPollPage.class);
+        startActivity(i);
+    }
+
+    public void onSignoutButtonClicked(View view) {
+        mAuth.signOut();
+        Intent i = new Intent(PollPage.this, MainActivity.class);
+        finish();
         startActivity(i);
     }
 }
