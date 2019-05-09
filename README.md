@@ -1,4 +1,4 @@
 # AndroidStudio-UPoll
 
-![alt_text](img/signin.png =500x500)
-![alt text](img/home.png =500x500)
+![](img/signin.png)
+![](img/home.png)
