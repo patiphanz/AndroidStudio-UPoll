@@ -1,4 +1,3 @@
 # AndroidStudio-UPoll
 
-![](img/signin.png)
-![](img/home.png)
+<img src="img/home.png">
