@@ -9,23 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".SignUpPage"></activity>
         <activity
             android:name=".NewPollPage"
             android:label="New Poll" />
         <activity
             android:name=".UListPage"
             android:label="UList" />
-
         <activity
             android:name=".FriendPage"
             android:label="Friend List" />
         <activity
             android:name=".PollPage"
             android:label="@string/title_activity_poll_page"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
-        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

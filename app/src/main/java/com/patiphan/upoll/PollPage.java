@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -25,6 +26,8 @@ public class PollPage extends AppCompatActivity
 
     private FirebaseAuth mAuth;
 
+    private Button joinBtn;
+
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
@@ -34,6 +37,8 @@ public class PollPage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poll_page);
+
+        joinBtn = findViewById(R.id.joinBtn);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference("User_Details");
@@ -54,7 +59,6 @@ public class PollPage extends AppCompatActivity
             @Override
             protected void populateViewHolder(ShowDataViewHolder viewHolder, ViewSingleItem model, final int position) {
                 viewHolder.Poll_Title(model.getPoll_title());
-
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -89,7 +93,7 @@ public class PollPage extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        Intent i = new Intent(getApplicationContext(), PollPage.class);
+        Intent i = null;
 
         switch (item.getItemId()) {
 
@@ -121,10 +125,27 @@ public class PollPage extends AppCompatActivity
     }
 
     public void onSignoutButtonClicked(View view) {
-        mAuth.signOut();
-        Intent i = new Intent(PollPage.this, MainActivity.class);
-        finish();
-        startActivity(i);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PollPage.this);
+        builder.setMessage("Are you want to sign out?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAuth.signOut();
+                        Intent i = new Intent(PollPage.this, MainActivity.class);
+                        finish();
+                        startActivity(i);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.setTitle("Are you sure?");
+        dialog.show();
+
     }
 
     public static class ShowDataViewHolder extends RecyclerView.ViewHolder {
