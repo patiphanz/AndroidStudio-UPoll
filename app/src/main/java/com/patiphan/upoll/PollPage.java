@@ -18,9 +18,7 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.common.internal.Objects;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -49,7 +47,7 @@ public class PollPage extends AppCompatActivity
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference("User_Details");
         mAuth = FirebaseAuth.getInstance();
-        mUserJoin = new Firebase("https://upoll-app-c8dbb.firebaseio.com/").child("User_Joined").child(mAuth.getCurrentUser().getUid()).push();
+        mUserJoin = new Firebase("https://upoll-app-c8dbb.firebaseio.com/").child("User_Joined").push();
         recyclerView = (RecyclerView) findViewById(R.id.viewPollData);
         recyclerView.setLayoutManager(new LinearLayoutManager(PollPage.this));
 
@@ -94,7 +92,8 @@ public class PollPage extends AppCompatActivity
                 ((ShowDataViewHolder)viewHolder).joinBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mUserJoin.setValue(model.getPoll_title());
+                        Firebase childRef_name = mUserJoin.child("List_Title");
+                        childRef_name.setValue(model.getPoll_title());
                         Toast.makeText(PollPage.this, "You joined "+model.getPoll_title(),Toast.LENGTH_SHORT).show();
                     }
                 });
