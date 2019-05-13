@@ -14,9 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.common.internal.Objects;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,6 +30,7 @@ public class PollPage extends AppCompatActivity
 
     private FirebaseAuth mAuth;
 
+    private Firebase mUserJoin;
     private Button joinBtn;
 
     RecyclerView recyclerView;
@@ -37,13 +42,14 @@ public class PollPage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poll_page);
-
+        Firebase.setAndroidContext(this);
         joinBtn = findViewById(R.id.joinBtn);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference("User_Details");
         mAuth = FirebaseAuth.getInstance();
-
+        mUserJoin = new Firebase("https://upoll-app-c8dbb.firebaseio.com/").child("User_Joined").child(mAuth.getCurrentUser().getUid()).push();
         recyclerView = (RecyclerView) findViewById(R.id.viewPollData);
         recyclerView.setLayoutManager(new LinearLayoutManager(PollPage.this));
 
@@ -57,7 +63,7 @@ public class PollPage extends AppCompatActivity
         super.onStart();
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ViewSingleItem, ShowDataViewHolder>(ViewSingleItem.class, R.layout.viewsingleitem, ShowDataViewHolder.class, myRef) {
             @Override
-            protected void populateViewHolder(ShowDataViewHolder viewHolder, ViewSingleItem model, final int position) {
+            protected void populateViewHolder(final ShowDataViewHolder viewHolder, final ViewSingleItem model, final int position) {
                 viewHolder.Poll_Title(model.getPoll_title());
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -83,6 +89,13 @@ public class PollPage extends AppCompatActivity
                         AlertDialog dialog = builder.create();
                         dialog.setTitle("Are you sure?");
                         dialog.show();
+                    }
+                });
+                ((ShowDataViewHolder)viewHolder).joinBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mUserJoin.setValue(model.getPoll_title());
+                        Toast.makeText(PollPage.this, "You joined "+model.getPoll_title(),Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -151,12 +164,16 @@ public class PollPage extends AppCompatActivity
     public static class ShowDataViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView poll_title;
+        private final Button joinBtn;
 
         public ShowDataViewHolder(final View itemView) {
             super(itemView);
             poll_title = (TextView) itemView.findViewById(R.id.fetch_poll_title);
+            joinBtn = (Button) itemView.findViewById(R.id.joinBtn);
         }
 
         private void Poll_Title(String title) { poll_title.setText(title); }
     }
+
+
 }

@@ -18,7 +18,6 @@ public class NewPollPage extends AppCompatActivity {
     private TextView pollText;
 
     private Firebase mRootRef;
-    private DatabaseReference mdatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,6 @@ public class NewPollPage extends AppCompatActivity {
         postBtn = (Button) findViewById(R.id.postBtn);
 
         // Initialize Firebase
-        mdatabaseRef = FirebaseDatabase.getInstance().getReference();
         mRootRef = new Firebase("https://upoll-app-c8dbb.firebaseio.com/").child("User_Details").push();
 
         postBtn.setOnClickListener(new View.OnClickListener() {
